@@ -11,20 +11,36 @@ import { loadCart } from '../data/cart.js';
 
 // so here, we waited for load products to finish, then called resolve to go to next step
 
-Promise.all([
-  loadProductsFetch(),
-  new Promise((resolve) => {
+async function loadPage(){
+  await loadProductsFetch();
+
+  await new Promise((resolve) => {
     loadCart(() => {
-      resolve();
+    resolve('value3');
     });
   })
 
-
-]).then((values) => {
-  console.log(values);
   renderOrderSummary();
   renderPaymentSummary();
-});
+
+}
+
+loadPage();
+
+// Promise.all([
+//   loadProductsFetch(),
+//   new Promise((resolve) => {
+//     loadCart(() => {
+//       resolve();
+//     });
+//   })
+
+
+// ]).then((values) => {
+//   console.log(values);
+//   renderOrderSummary();
+//   renderPaymentSummary();
+// });
 
 /*
 new Promise((resolve) => {
