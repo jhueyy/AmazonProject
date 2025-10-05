@@ -12,13 +12,24 @@ import { loadCart } from '../data/cart.js';
 // so here, we waited for load products to finish, then called resolve to go to next step
 
 async function loadPage(){
-  await loadProductsFetch();
+  try {
+    // throw 'error1';
+    //put code that could cause an error into try
+    await loadProductsFetch();
 
-  await new Promise((resolve) => {
-    loadCart(() => {
-    resolve('value3');
+    const value = await new Promise((resolve, reject) => {
+      // throw 'error2';
+      loadCart(() => {
+        // reject('error3');
+        resolve('value3');
+      });
     });
-  })
+  } catch(error) {
+    // if there's an error inside try, runs code inside catch
+    console.log('Unexpected Error, Please try again later.');
+  
+  }
+  
 
   renderOrderSummary();
   renderPaymentSummary();
